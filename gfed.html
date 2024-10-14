@@ -7,46 +7,117 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
         }
-        #taskList {
-            list-style-type: none;
-            padding: 0;
+        h1 {
+            text-align: center;
+        }
+        .task-container {
+            margin: 20px auto;
+            max-width: 600px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         .task {
             display: flex;
             justify-content: space-between;
-            padding: 5px;
-            border: 1px solid #ccc;
-            margin: 5px 0;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .task:last-child {
+            border-bottom: none;
+        }
+        .btn {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-danger {
+            background-color: #d9534f;
         }
     </style>
 </head>
 <body>
-    <input type="text" id="taskInput" placeholder="add Task">
-    <button onclick="addTask()">add</button>
-    <ul id="taskList"></ul>
 
-    <script>
-        function addTask() {
-            const taskInput = document.getElementById('taskInput');
-            const taskValue = taskInput.value.trim();
-            if (taskValue === '') return;
+<h1>مدير المهام</h1>
+<div class="task-container">
+    <input type="text" id="taskName" placeholder="اسم المهمة" required>
+    <input type="text" id="taskDescription" placeholder="وصف المهمة">
+    <input type="date" id="taskDueDate">
+    <button class="btn" onclick="addTask()">إضافة مهمة</button>
+    
+    <div id="taskList"></div>
+</div>
 
-            const taskList = document.getElementById('taskList');
-            const taskItem = document.createElement('li');
-            taskItem.classList.add('task');
-            taskItem.innerHTML = `
-                <span>${taskValue}</span>
-                <button onclick="removeTask(this)">delete</button>
-            `;
-            taskList.appendChild(taskItem);
-            taskInput.value = '';
+<script>
+    // تحميل المهام عند تحميل الصفحة
+    window.onload = function() {
+        const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        tasks.forEach(task => {
+            displayTask(task.name, task.description, task.dueDate);
+        });
+    };
+
+    function addTask() {
+        const name = document.getElementById('taskName').value;
+        const description = document.getElementById('taskDescription').value;
+        const dueDate = document.getElementById('taskDueDate').value;
+
+        if (!name) {
+            alert('يرجى إدخال اسم المهمة');
+            return;
         }
 
-        function removeTask(button) {
-            const taskItem = button.parentElement;
-            taskItem.remove();
-        }
-    </script>
+        const task = { name, description, dueDate };
+        saveTaskToLocal(task);
+        displayTask(name, description, dueDate);
+
+        // إعادة تعيين الحقول
+        document.getElementById('taskName').value = '';
+        document.getElementById('taskDescription').value = '';
+        document.getElementById('taskDueDate').value = '';
+    }
+
+    function displayTask(name, description, dueDate) {
+        const taskList = document.getElementById('taskList');
+        const taskDiv = document.createElement('div');
+        taskDiv.className = 'task';
+        taskDiv.innerHTML = `
+            <div>
+                <strong>${name}</strong><br>
+                <span>${description || 'لا يوجد وصف'}</span><br>
+                <span>${dueDate ? 'تاريخ الاستحقاق: ' + dueDate : 'بدون تاريخ استحقاق'}</span>
+            </div>
+            <button class="btn btn-danger" onclick="removeTask(this)">حذف</button>
+        `;
+        taskList.appendChild(taskDiv);
+    }
+
+    function saveTaskToLocal(task) {
+        const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        tasks.push(task);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    function removeTask(button) {
+        const taskDiv = button.parentElement;
+        const name = taskDiv.querySelector('strong').innerText;
+        const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        const updatedTasks = tasks.filter(task => task.name !== name);
+
+        localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+        taskDiv.remove();
+    }
+</script>
+
 </body>
 </html>

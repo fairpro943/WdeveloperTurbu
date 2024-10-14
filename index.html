@@ -10,85 +10,22 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="gfed.html">rr</a>
+    <!--<a href="gfed.html">rr</a>-->
     
     <div style="display: flex; justify-content: center;align-items: center;">
 
 
         <div class="task-tabl">
-            <!--<button class="add">
-                add
-            </button>
 
-            <div class="task">
-                <div style="width: 70%;background: #00ffff;position: absolute;left: 15%;top: 5%;height: 70px;">
-                    <h3>info</h3>
-                    <span style="position: absolute;left: 73%;top: 70%;">2024/10/12</span>
-                </div>
-                <div>
-                    <<button class="cont" style="background-color: #ffff00;position: absolute;left: 50%;top: 70%;">
-                        <span class="material-symbols-rounded">
-                            delete_forever
-                            </span>
-                    </button>
-                    <button class="cont" style="background-color: #ff00ff;">
-                        ok
-                    </button>
-                    <button class="cont" style="background-color: #f0f0f0;">
-                        <span class="material-symbols-outlined">
-                            edit
-                            </span>
-                    </button>
-                </div>
+            
+            <div class="task-container">
+                <input type="text" id="taskName" placeholder="task Name" required>
+                <input type="text" id="taskDescription" placeholder="task Description">
+                <input type="date" id="taskDueDate">
+                <button class="btn" onclick="addTask()">add task</button>
+                
+                <div id="taskList"></div>
             </div>
-
-            <div class="task">
-                <div style="width: 70%;background: #00ffff;position: absolute;left: 15%;top: 5%;height: 70px;">
-                    <h3>info</h3>
-                    <span style="position: absolute;left: 73%;top: 70%;">2024/10/12</span>
-                </div>
-                <div>
-                    <button class="cont" style="background-color: #ffff00;">
-                        <span class="material-symbols-rounded">
-                            delete_forever
-                            </span>
-                    </button>
-                    <button class="cont" style="background-color: #ff00ff;">
-                        ok
-                    </button>
-                    <button class="cont" style="background-color: #f0f0f0;">
-                        <span class="material-symbols-outlined">
-                            edit
-                            </span>
-                    </button>
-                </div>
-            </div>
-
-            <div class="task">
-                <div style="width: 70%;background: #00ffff;position: absolute;left: 15%;top: 5%;height: 70px;">
-                    <h3>info</h3>
-                    <span style="position: absolute;left: 73%;top: 70%;">2024/10/12</span>
-                </div>
-                <div>
-                    <button class="cont" style="background-color: #ffff00;">
-                        <span class="material-symbols-rounded">
-                            delete_forever
-                            </span>
-                    </button>
-                    <button class="cont" style="background-color: #ff00ff;">
-                        ok
-                    </button>
-                    <button class="cont" style="background-color: #f0f0f0;">
-                        <span class="material-symbols-outlined">
-                            edit
-                            </span>
-                    </button>
-                </div>
-            </div>-->
-            <h1>مدير المهام</h1>
-            <input type="text" id="taskInput" placeholder="add Task" style="padding: 10px;">
-            <button onclick="addTask()" style="background-color: #00ff00;border-radius: 16%;border: 0;padding: 10px;">add</button>
-            <ul id="taskList"></ul>
 
 
 
